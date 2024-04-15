@@ -1,13 +1,13 @@
 task: nerf
-gpus: [2] # set gpu device number
+gpus: [1] # set gpu device number
 exp_name: "nerf"
-scene: "lego"
+scene: "doll"
 
-train_dataset_module: 'lib.datasets.nerf.synthetic'
-train_dataset_path: 'lib/datasets/nerf/synthetic.py'
+train_dataset_module: 'lib.datasets.nerf.doll'
+train_dataset_path: 'lib/datasets/nerf/doll.py'
 
-test_dataset_module: 'lib.datasets.nerf.synthetic'
-test_dataset_path: 'lib/datasets/nerf/synthetic.py'
+test_dataset_module: 'lib.datasets.nerf.doll'
+test_dataset_path: 'lib/datasets/nerf/doll.py'
 
 network_module: 'lib.networks.nerf.network'
 network_path: 'lib/networks/nerf/network.py'
@@ -27,7 +27,7 @@ visualizer_path: 'lib/visualizers/nerf.py'
 task_arg:
   N_rays: 1024 # number of rays in each batch
   chunk_size: 4096 # number of rays processed in parallel
-  white_bkgd: 1 # use white background
+  white_bkgd: 0 # use white background
   N_samples: 64 # number of samples per ray in coarse network
   N_importance: 128 # number of samples per ray in fine network
   no_batching: True # True for synthetic datasets
@@ -76,7 +76,7 @@ train:
   batch_size: 1
   lr: 5e-4 # learning rate
   weight_decay: 0.
-  epoch: 600
+  epoch: 400
   optim: 'adam'
   scheduler:
     type: "exponential"
@@ -91,7 +91,7 @@ eval:
   whole_img: True
 
 ep_iter: 500 # number of iterations in each epoch
-save_ep: 40
-eval_ep: 40 # 20000 iterations
+save_ep: 20
+eval_ep: 20 # 20000 iterations
 save_latest_ep: 10 # 5000 iterations
 log_interval: 10
